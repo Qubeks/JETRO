@@ -31,3 +31,47 @@
 Header:
   Type: MOB_ITEM_RATIO_DB
   Version: 1
+
+Body:
+
+    - Item: Valkyrja's_Shield
+      Ratio: 0
+
+    - Item: Valkyrie_Armor
+      Ratio: 0
+
+    - Item: Valkyrie_Manteau
+      Ratio: 0
+
+    - Item: Valkyrie_Shoes
+      Ratio: 0
+
+    - Item: G_Strings
+      Ratio: 1
+
+    - Item: Undershirt
+      Ratio: 1
+
+    - Item: White_Jewel
+      Ratio: 1
+
+    - Item: Witherless_Rose
+      Ratio: 1
+
+    - Item: Treasure_Box
+      Ratio: 1
+
+    - Item: Creamy_Card
+      Ratio: 1
+
+    - Item: Royal_Jelly
+      Ratio: 1
+
+    - Item: Gold
+      Ratio: 1
+
+    - Item: Azoth
+      Ratio: 0
+
+    - Item: Branch_Of_Dead_Tree
+      Ratio: 0

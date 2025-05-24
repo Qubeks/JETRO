@@ -7908,21 +7908,21 @@ Body:
       ItemCost:
         - Item: Yellow_Gemstone
           Amount: 1
-  - Id: 290
-    Name: SA_ABRACADABRA
-    Description: Hocus-pocus
-    MaxLevel: 10
-    Type: Magic
-    TargetType: Self
-    DamageFlags:
-      NoDamage: true
-    Hit: Single
-    HitCount: 1
-    Requires:
-      SpCost: 50
-      ItemCost:
-        - Item: Yellow_Gemstone
-          Amount: 2
+#  - Id: 290
+#    Name: SA_ABRACADABRA
+#    Description: Hocus-pocus
+#    MaxLevel: 10
+#    Type: Magic
+#    TargetType: Self
+#    DamageFlags:
+#      NoDamage: true
+#    Hit: Single
+#    HitCount: 1
+#    Requires:
+#      SpCost: 50
+#      ItemCost:
+#        - Item: Yellow_Gemstone
+#          Amount: 2
   - Id: 291
     Name: SA_MONOCELL
     Description: Monocell
@@ -11285,7 +11285,6 @@ Body:
     Element: Weapon
     SplashArea: 1
     Knockback: 2
-    Duration1: 5000
     Duration2: 2000
     Requires:
       SpCost:
