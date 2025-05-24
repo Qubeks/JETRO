@@ -29,111 +29,575 @@ Header:
 Body:
   - StorageId: 10
     #Bound: false
-    WithdrawFee: 1000000
+    #WithdrawFee: 1000000
     Items:
-     - Item: Knight_Of_Abyss_Card
-       Amount: 100
-       Script: |
-         bonus2 bAddClass,Class_Boss,1;
-     - Item: Agav_Card
-       Amount: 100
-       Script: |
-         bonus bMatkRate,1;
-         bonus bDef,-10;
-         if ( BaseClass == Job_Mage )
-            bonus bMaxSP,1;
-     - Item: Alarm_Card
-       Amount: 100
-       Script: |
-         bonus bMaxHP,1;
-         bonus bVit,1;
-     - Item: Alice_Card
-       Amount: 100
+     - Item: Alicel_Card
+       Amount: 5
        Script: |
          bonus2 bSubClass,Class_Boss,1;
-         bonus2 bSubClass,Class_Normal,-1;
-     - Item: Alicel_Card
-       Amount: 100
-       Script: |
-         bonus bFlee,1;
-         bonus bDef,-1;
      - Item: Aliot_Card
-       Amount: 100
+       Amount: 3
        Script: |
-         if ( BaseClass == Job_Swordman || BaseClass == Job_Merchant || BaseClass == Job_Thief )
-            bonus bStr,1; 
-            bonus bMaxHPrate,1;
-         if ( BaseClass == Job_Mage || BaseClass == Job_Archer || BaseClass == Job_Acolyte )
-            bonus bInt,1; 
-            bonus bMaxSPrate,1;
-     - Item: Aliza_Card #to be changed
-       Amount: 100
+         bonus bMatk,2;
+     - Item: Aliza_Card
+       Amount: 3
        Script: |
-         bonus bFlee,1;
-         bonus bDef,-1;
-     - Item: Alligator_Card
-       Amount: 100
-       Script: |
-         bonus bLongAtkDef,1;
-     - Item: Am_Mut_Card
-       Amount: 100
-       Script: |
-         bonus2 bSubRace,RC_DemiHuman,-1; 
-         bonus2 bSubRace,RC_Player_Human,-1; 
-         bonus2 bExpAddRace,RC_DemiHuman,1;
-     - Item: Ambernite_Card
-       Amount: 100
-       Script: |
-         bonus bDef,1;
-     - Item: Amon_Ra_Card
-       Amount: 1
-       Script: |
-         bonus bAllStats,1;
-     - Item: Anacondaq_Card
-       Amount: 100
-       Script: |
-         bonus2 bAddEle,Ele_Poison,1;
+         bonus bMatk,2;
      - Item: Ancient_Mimic_Card
-       Amount: 100
+       Amount: 2
        Script: |
-         bonus bAgi,readparam(bLuk)/40;
-     - Item: Ancient_Mummy_Card #to be changed
-       Amount: 100
+         bonus bMaxHP,20;
+     - Item: Angeling_Card
+       Amount: 2
        Script: |
-         bonus bAgi,readparam(bLuk)/40;
-     - Item: Ancient_Worm_Card
-       Amount: 100
+         bonus bInt,5;
+     - Item: Anopheles_Card
+       Amount: 2
        Script: |
-          bonus2 bSubRace,RC_Demon,-1; 
-          bonus2 bExpAddRace,RC_Demon,1;
-     - Item: Andre_Card
-       Amount: 100
-       Script: |
-          bonus bBaseAtk,20;
-     - Item: Andre_Egg_Card
-       Amount: 100
-       Script: |
-          bonus bMaxHPrate,1;
-     - Item: Angeling_Card #to be changed
+         bonus bAddMaxWeight,100;
+     - Item: Antonio_Card
        Amount: 10
        Script: |
-          bonus bMaxHPrate,1;
-     - Item: Anolian_Card
-       Amount: 100
+         bonus bAtkRate,1;
+     - Item: Apocalips_Card
+       Amount: 10
        Script: |
-          bonus3 bAutoSpellWhenHit,"AC_CONCENTRATION",1+9*(getskilllv("AC_CONCENTRATION")==10),30;
-     - Item: Anopheles_Card
-       Amount: 100
+         bonus bVit,1;
+     - Item: Archdam_Card
+       Amount: 10
        Script: |
-          bonus3 bAddMonsterDropItem,12058,RC_Insect,50;
-     - Item: Antonio_Card
-       Amount: 100
+         bonus bDex,1;
+     - Item: Argiope_Card
+       Amount: 5
        Script: |
-          bonus3 bAutoSpellWhenHit,"AL_TELEPORT",1,500;
-     - Item: Anubis_Card
-       Amount: 100
+         bonus2 bSubDefEle,Ele_Poison,1;
+     - Item: Armaia_Card
+       Amount: 2
        Script: |
-          bonus2 bSubRace,RC_Angel,30;
+         bonus bMaxHP,20;
+     - Item: Atroce_Card
+       Amount: 7
+       Script: |
+         bonus bCriticalRate,5;
+     - Item: Baby_Leopard_Card
+       Amount: 10
+       Script: |
+         bonus bLuk,2;
+     - Item: Retribution_Card
+       Amount: 2
+       Script: |
+         bonus bMaxHP,20;
+     - Item: Beholder_Card
+       Amount: 5
+       Script: |
+         bonus2 bMagicAtkEle,Ele_Ghost,1;
+     - Item: Bloody_Knight_Card
+       Amount: 5
+       Script: |
+         bonus2 bAddRace2,RC_Dragon,1;
+         bonus2 bAddRace2,RC_Fish,1;
+     - Item: Bow_Guardian_Card
+       Amount: 10
+       Script: |
+         bonus bLongAtkRate,2;
+     - Item: Breeze_Card
+       Amount: 3
+       Script: |
+         bonus bAtk,2;
+     - Item: Carat_Card
+       Amount: 3
+       Script: |
+         bonus bMdef,5;
+     - Item: Shecil_Card
+       Amount: 5
+       Script: |
+         bonus bAspdRate,1;
+     - Item: Cookie_Card
+       Amount: 5
+       Script: |
+         bonus2 bSubDefEle,Ele_Holy,1;
+         bonus2 bMagicSubDefEle,Ele_Holy,1;
+     - Item: Cramp_Card
+       Amount: 10
+       Script: |
+         bonus bStr,1;
+     - Item: Observation_Card
+       Amount: 10
+       Script: |
+         bonus bVit,1;
+     - Item: Dark_Illusion_Card
+       Amount: 5
+       Script: |
+         bonus bCastrate,-1;
+     - Item: Dark_Lord_Card
+       Amount: 3
+       Script: |
+         bonus bCastrate,-5;
+     - Item: Deathword_Card
+       Amount: 2
+       Script: |
+         bonus bAddMaxWeight,100;
+     - Item: Tha_Despero_Card
+       Amount: 5
+       Script: |
+         bonus bAspdRate,1;
+     - Item: Detale_Card
+       Amount: 5
+       Script: |
+         bonus bDef,10;
+     - Item: Dimik_Card
+       Amount: 2
+       Script: |
+         bonus bFlee,2;
+     - Item: Tha_Dolor_Card
+       Amount: 2
+       Script: |
+         bonus2 bAddRace,RC_Angel,1;
+         bonus2 bMagicAddRace,RC_Angel,1;
+     - Item: Dragon_Egg_Card
+       Amount: 2
+       Script: |
+         bonus bAddMaxWeight,100;
+     - Item: Dragon_Fly_Card
+       Amount: 10
+       Script: |
+         bonus bDex,2;
+     - Item: Drake_Card
+       Amount: 3
+       Script: |
+         bonus bAtk,20;
+     - Item: Drosera_Card
+       Amount: 5
+       Script: |
+         bonus bCritAtkRate,1;
+     - Item: Dustiness_Card
+       Amount: 3
+       Script: |
+         bonus bMdef,5;
+     - Item: Echio_Card
+       Amount: 5
+       Script: |
+         bonus bBaseAtk,3;
+         bonus bMaxHP,30;
+     - Item: Ygnizem_Card
+       Amount: 2
+       Script: |
+         bonus bAddMaxWeight,100;
+     - Item: Elder_Wilow_Card
+       Amount: 10
+       Script: |
+         bonus bInt,1;
+     - Item: Eremes_Card
+       Amount: 5
+       Script: |
+         bonus2 bCriticalAddRace,RC_DemiHuman,1; 
+         bonus2 bCriticalAddRace,RC_Player_Human,1;
+     - Item: Erend_Card
+       Amount: 3
+       Script: |
+         bonus bDef,2;
+     - Item: Dark_Snake_Lord_Card
+       Amount: 1
+       Script: |
+         bonus2 bResEff,Eff_Curse,500;
+     - Item: Fallen_Bishop_Card
+       Amount: 4
+       Script: |
+         bonus bMatkRate,5;
+     - Item: Fake_Angel_Card
+       Amount: 2
+       Script: |
+         bonus2 bSPGainRace,RC_Angel,1;
+     - Item: Freezer_Card
+       Amount: 5
+       Script: |
+         bonus2 bResEff,Eff_Freezing,100;
+     - Item: Frus_Card
+       Amount: 3
+       Script: |
+         bonus bMdef,1;
+     - Item: Galion_Card
+       Amount: 10
+       Script: |
+         bonus bHit,5; 
+         bonus2 bAddEle,Ele_Water,2;
+     - Item: Gazeti_Card
+       Amount: 5
+       Script: |
+         bonus bDef,2;
+     - Item: Gemini_Card
+       Amount: 5
+       Script: |
+         bonus2 bResEff,Eff_Stun,300;
+     - Item: B_Ygnizem_Card
+       Amount: 5
+       Script: |
+         bonus bAllStats,2;
+     - Item: Whisper_Boss_Card
+       Amount: 10
+       Script: |
+         bonus bAtkRate,3;
+     - Item: Gloom_Under_Night_Card
+       Amount: 4
+       Script: |
+         bonus2 bAddEle,Ele_Holy,5; 
+         bonus2 bAddEle,Ele_Dark,5;
+     - Item: Greatest_General_Card
+       Amount: 5
+       Script: |
+         bonus2 bAddEle,Ele_Neutral,1;
+     - Item: Ferus__Card
+       Amount: 5
+       Script: |
+         bonus bMaxHP,75;
+     - Item: Chung_E_Card
+       Amount: 5
+       Script: |
+         bonus bCriticalRate,1;
+     - Item: Gremlin_Card
+       Amount: 5
+       Script: |
+         bonus2 bAddEle,Ele_Neutral,1;
+     - Item: Garm_Card
+       Amount: 20
+       Script: |
+         bonus2 bAddClass,Class_Boss,5;
+     - Item: Heater_Card
+       Amount: 2
+       Script: |
+         bonus bFlee2,2;
+     - Item: High_Orc_Card
+       Amount: 5
+       Script: |
+         bonus bCriticalRate,1;
+     - Item: B_Magaleta_Card
+       Amount: 3
+       Script: |
+         bonus bInt,3;
+     - Item: B_Katrinn_Card
+       Amount: 3
+       Script: |
+         bonus bDex,3;
+     - Item: Hill_Wind_Card
+       Amount: 2
+       Script: |
+         bonus bDef,1;
+     - Item: Hodremlin_Card
+       Amount: 2
+       Script: |
+         bonus bAddMaxWeight,100;
+     - Item: Mole_Card
+       Amount: 10
+       Script: |
+         bonus bLuk,2;
+     - Item: Harword_Card
+       Amount: 2
+       Script: |
+         bonus bHit,2;
+     - Item: Hydra_Card
+       Amount: 5
+       Script: |
+         bonus2 bAddRace,RC_DemiHuman,2; 
+         bonus2 bAddRace,RC_Player_Human,2;
+     - Item: Hydro_Card
+       Amount: 3
+       Script: |
+         bonus bMatk,2;
+     - Item: Hylozoist_Card
+       Amount: 5
+       Script: |
+         bonus2 bAddRace,RC_Insect,2;
+     - Item: Ice_Titan_Card
+       Amount: 5
+       Script: |
+         bonus bDef,2;
+     - Item: Ifrit_Card
+       Amount: 4
+       Script: |
+         bonus bBaseAtk,25; 
+         bonus bCritical,5; 
+         bonus bHit,25;
+     - Item: Isilla_Card
+       Amount: 10
+       Script: |
+         bonus bCastrate,-1;
+     - Item: Kasa_Card
+       Amount: 5
+       Script: |
+         bonus2 bSubEle,Ele_Fire,2;
+     - Item: Katrinn_Card
+       Amount: 15
+       Script: |
+         bonus bMatkRate,5;
+     - Item: Kavac_Card
+       Amount: 5
+       Script: |
+         bonus2 bMagicAtkEle,Ele_Wind,1;
+     - Item: Kiel_Card
+       Amount: 5
+       Script: |
+         bonus bCastrate,-5;
+     - Item: Kobold_Leader_Card
+       Amount: 5
+       Script: |
+         bonus bHit,15;
+     - Item: Ktullanux_Card
+       Amount: 10
+       Script: |
+         bonus2 bAddEle,Ele_Fire,5;
+     - Item: Solace_Card
+       Amount: 3
+       Script: |
+         bonus bMatk,2;
+     - Item: Rawrel_Card
+       Amount: 3
+       Script: |
+         bonus bMatk,2;
+     - Item: B_Seyren_Card
+       Amount: 5
+       Script: |
+         bonus bStr,5;
+     - Item: Lord_Of_Death_Card
+       Amount: 5
+       Script: |
+         bonus2 bIgnoreMdefRaceRate,RC_All,5;
+     - Item: Tha_Maero_Card
+       Amount: 5
+       Script: |
+         bonus2 bMagicAtkEle,Ele_Neutral,1;
+     - Item: Mantis_Card
+       Amount: 10
+       Script: |
+         bonus bStr,1;
+     - Item: Magaleta_Card
+       Amount: 5
+       Script: |
+         bonus bMaxSPrate,1;
+     - Item: B_Harword_Card
+       Amount: 3
+       Script: |
+         bonus bVit,3;
+     - Item: Thanatos_Card
+       Amount: 4
+       Script: |
+         bonus2 bIgnoreDefRaceRate,RC_All,5;
+     - Item: Metaling_Card
+       Amount: 5
+       Script: |
+         bonus2 bAddRace2,RC_Formless,1;
+     - Item: Mineral_Card
+       Amount: 2
+       Script: |
+         bonus bDef,1;
+     - Item: Shelter_Card
+       Amount: 3
+       Script: |
+         bonus2 bCriticalAddRace,RC_Angel,1;
+     - Item: Mobster_Card
+       Amount: 5
+       Script: |
+         bonus bCritAtkRate,2;
+     - Item: Moonlight_Flower_Card
+       Amount: 2
+       Script: |
+         bonus bSpeedAddRate,5;
+     - Item: Muscipular_Card
+       Amount: 2
+       Script: |
+         bonus bMaxHP,20;
+     - Item: Mutant_Dragon_Card
+       Amount: 10
+       Script: |
+         bonus bAgi,2;
+     - Item: Necromancer_Card
+       Amount: 10
+       Script: |
+         bonus2 bIgnoreMdefRaceRate,RC_All,1;
+     - Item: Noxious_Card
+       Amount: 5
+       Script: |
+         bonus bLongAtkDef,2;
+     - Item: Obsidian_Card
+       Amount: 2
+       Script: |
+         bonus bMaxHP,20;
+     - Item: Tha_Odium_Card
+       Amount: 5
+       Script: |
+         bonus bAgi,1;
+     - Item: Penomena_Card
+       Amount: 5
+       Script: |
+         bonus2 bSubRace,RC_Formless,1;
+     - Item: Permeter_Card
+       Amount: 5
+       Script: |
+         bonus2 bSubEle,Ele_Dark,1;
+     - Item: Pitman_Card
+       Amount: 5
+       Script: |
+         bonus2 bMagicAtkEle,Ele_Earth,1;
+     - Item: Plasma_Card
+       Amount: 2
+       Script: |
+         bonus bMaxSP,5;
+     - Item: Porcellio_Card
+       Amount: 2
+       Script: |
+         bonus bBaseAtk,3;
+     - Item: Punk_Card
+       Amount: 3
+       Script: |
+         bonus2 bSubRace,RC_Plant,1;
+     - Item: Quve_Card
+       Amount: 5
+       Script: |
+         bonus bUseSPrate,-1;
+     - Item: Randgris_Card
+       Amount: 4
+       Script: |
+         bonus bAtkRate,5;
+     - Item: Novus_Card
+       Amount: 3
+       Script: |
+         bonus2 bSubRace,RC_Angel,1;
+     - Item: Removal_Card
+       Amount: 5
+       Script: |
+         bonus2 bMagicAtkEle,Ele_Poison,1;
+     - Item: Roween_Card
+       Amount: 5
+       Script: |
+         bonus bFlee,2; 
+         bonus bFlee2,1;
+     - Item: Rsx_0806_Card
+       Amount: 5
+       Script: |
+         bonus bVit,2; 
+         bonus2 bResEff,Eff_Stun,1000;
+     - Item: Salamander_Card
+       Amount: 5
+       Script: |
+         bonus bVit,2; 
+         bonus2 bAddEle,Ele_Fire,2;
+     - Item: Fur_Seal_Card
+       Amount: 5
+       Script: |
+         bonus bVit,2; 
+         bonus2 bSubRace,RC_Undead,1;
+         bonus2 bSubEle,Ele_Undead,1;
+     - Item: Seeker_Card
+       Amount: 5
+       Script: |
+         bonus bMatk,2;
+     - Item: Seyren_Card
+       Amount: 10
+       Script: |
+         bonus bAgi,2;
+     - Item: Siroma_Card
+       Amount: 5
+       Script: |
+         bonus2 bSubRace,RC_Brute,1;
+     - Item: Skeggiold_Card
+       Amount: 5
+       Script: |
+         bonus2 bSubRace,RC_DemiHuman,1;
+         bonus2 bSubRace,RC_Player_Human,1;
+     - Item: Skogul_Card
+       Amount: 5
+       Script: |
+         bonus bMatk,2;
+     - Item: B_Shecil_Card
+       Amount: 3
+       Script: |
+         bonus bLuk,10;
+     - Item: Snowier_Card
+       Amount: 3
+       Script: |
+         bonus bMaxHP,20;
+     - Item: Spore_Card
+       Amount: 10
+       Script: |
+         bonus bVit,1;
+     - Item: Stapo_Card
+       Amount: 10
+       Script: |
+         bonus bMaxHP,20;
+     - Item: Knight_Windstorm_Card
+       Amount: 3
+       Script: |
+         bonus bMatk,20;
+     - Item: Sword_Guardian_Card
+       Amount: 10
+       Script: |
+         bonus bShortAtkRate,2;
+     - Item: Tao_Gunka_Card
+       Amount: 5
+       Script: |
+         bonus bMaxHPrate,5;
+     - Item: Teddy_Bear_Card
+       Amount: 10
+       Script: |
+         bonus2 bAddRace,RC_Undead,2;
+         bonus2 bMagicAddRace,RC_Undead,2;
+     - Item: Thara_Frog_Card
+       Amount: 5
+       Script: |
+         bonus2 bSubRace,RC_DemiHuman,2; 
+         bonus2 bSubRace,RC_Player_Human,2;
+     - Item: The_Paper_Card
+       Amount: 10
+       Script: |
+         bonus bCritAtkRate,2;
+     - Item: Toad_Card
+       Amount: 10
+       Script: |
+         bonus bLuk,2;
+     - Item: Ungoliant_Card
+       Amount: 2
+       Script: |
+         bonus bHPrecovRate,3;
+     - Item: Vanberk_Card
+       Amount: 10
+       Script: |
+         bonus bAtkRate,1;
+     - Item: Venatu_Card
+       Amount: 3
+       Script: |
+         bonus2 bResEff,Eff_Curse,100;
+     - Item: Venomous_Card
+       Amount: 2
+       Script: |
+         bonus2 bSubEle,Ele_Poison,1;
+     - Item: Vocal_Card
+       Amount: 10
+       Script: |
+         bonus bVit,10;
+     - Item: Waste_Stove_Card
+       Amount: 1
+       Script: |
+         bonus bAtk,1;
+     - Item: Bacsojin_Card
+       Amount: 10
+       Script: |
+         bonus bHealPower,5;
+     - Item: Whikebain_Card
+       Amount: 2
+       Script: |
+         bonus bMaxHP,20;
+     - Item: Novus__Card
+       Amount: 3
+       Script: |
+         bonus bMaxHP,10; 
+         bonus bHPrecovRate,1;
+     - Item: Zherlthsh_Card
+       Amount: 5
+       Script: |
+         bonus bLongAtkRate,1;
+     - Item: Zerom_Card
+       Amount: 10
+       Script: |
+         bonus bDex,1;
   - StorageId: 11
     Bound: true
     Items:
