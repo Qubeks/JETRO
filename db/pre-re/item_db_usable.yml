@@ -1065,7 +1065,7 @@ Body:
   - Id: 604
     AegisName: Branch_Of_Dead_Tree
     Name: Dead Branch
-    Type: Etc
+    Type: Usable
     Buy: 50
     Weight: 50
     Flags:
@@ -3518,7 +3518,7 @@ Body:
   - Id: 12103
     AegisName: Bloody_Dead_Branch
     Name: Bloody Branch
-    Type: Etc
+    Type: Usable
     Buy: 10000
     Weight: 200
     Flags:
