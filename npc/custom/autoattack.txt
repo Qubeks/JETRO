@@ -19,6 +19,7 @@
 //= 1.4 Added Timer to limit the usage per day
 //= 1.5 Merged enable/disable skills into ON/OFF menu method
 //= 1.6 Change input method for adding buff items to menu method
+//= 1.7 Change input method for adding monsters to menu method
 //============================================================
 -	script	bot_at	-1,{
 	function calculate_remaining_time;
@@ -26,7 +27,7 @@
 OnInit:
     bindatcmd "boton", strnpcinfo(3) + "::OnDo";
     bindatcmd "botoff", strnpcinfo(3) + "::OnDo2";
-    .duration = 3600000; // 1 hour in milliseconds
+    .duration = 3 * 3600000; // 1 hour in milliseconds
     .remaining_time = .duration;
     .last_reset_day = gettime(7); // Initialize the reset day
     .start_time = 0;
@@ -61,7 +62,6 @@ OnDo:
     end;
 
 main_menu:
-	clear;
     .@menu$ = "[Auto Attack Configuration]";
     mes .@menu$;
     setdialogsize(400, 300);
@@ -97,38 +97,55 @@ main_menu:
 		case 3:
 			goto reset_timer;
 
-		default:
+		case 4:
 			close;
 
-		case 255:
-			mes "Cancel button clicked!";
-			break;
+		//case 255:
+		//	mes "Cancelled";
+		//	break;
 	}
     end;
 
 reset_timer:
 	clear;
-    // Replace with your actual item ID for "Proof of Donation"
-    .@item_id = 7179; // Example item ID
-    .@item_name$ = getitemname(.@item_id);
-    .@item_link$ = mesitemlink(.@item_id);
+	.@item_id = 7179; // Proof of Donation
+	.@item_name$ = getitemname(.@item_id);
+	.@item_link$ = mesitemlink(.@item_id);
+	.@charid = getcharid(0);
 
-    if (countitem(.@item_id) < 1) {
-        mes "You need at least one " + .@item_link$ + " to reset the auto-attack timer.";
-        close;
-    }
+	mes "You can reset your auto-attack timer with:";
+	mes "- 50 " + .@item_link$ + " 1 hour";
+	mes "- 100 " + .@item_link$ + " 3 hours";
 
-    // Consume 1 Proof of Donation
-    delitem .@item_id, 1;
+	if (countitem(.@item_id) < 50) {
+		mes "You need at least 50 " + .@item_link$ + " to reset.";
+		close;
+	}
 
-    // Reset the timer
-    setd(".autoattack_used_" + getcharid(0), 0);
-    .remaining_time = .duration;
+	.@choice = select("Use 50 " + .@item_name$ + " for 1 Hour", "Use 100 " + .@item_name$ + " for 3 Hours", "Cancel");
+	if (.@choice == 3) close;
 
-    mes "You used " + .@item_link$ + ".";
-    mes "The auto-attack timer has been reset.";
-    end;
+	if (.@choice == 1 && countitem(.@item_id) < 50) {
+		mes "You don't have 50 " + .@item_link$ + ".";
+		close;
+	} else if (.@choice == 2 && countitem(.@item_id) < 100) {
+		mes "You don't have 100 " + .@item_link$ + ".";
+		close;
+	}
 
+	if (.@choice == 1) {
+		delitem .@item_id, 50;
+		setd(".autoattack_used_" + .@charid, 0);
+		.remaining_time = 3600000; // 1 hour
+		mes "1 hour auto-attack time restored.";
+	} else if (.@choice == 2) {
+		delitem .@item_id, 100;
+		setd(".autoattack_used_" + .@charid, 0);
+		.remaining_time = 3 * 3600000; // 3 hours
+		mes "3 hours auto-attack time restored.";
+	}
+
+	close;
 
 OnAutoAttackDuration:
 	clear;
@@ -139,7 +156,6 @@ OnAutoAttackDuration:
     end;
 
 config_menu:
-	clear;
 	.@menu$ = "[Auto Attack Configuration]";
 	mes .@menu$;
 	// To disable an option, comment the line
@@ -309,24 +325,63 @@ monsters_menu:
 				goto monsters_menu;
 			}
 
-			// Get all mobs on current map near player
+			// Get nearby mobs
 			.@mob_count = getmapunits(BL_MOB, strcharinfo(3), .@units);
-
-			// Get already selected monster list
 			.@already_added$ = getautoattackstring(8,1);
 			explode(.@added_array$, .@already_added$, ":");
 
-			// Prepare arrays and counters
-			.@seen_size = 0;
-			.@mob_menu$ = "";
+			// Check if all visible unique mobs are already added
+			.@unique_count = 0;
+			.@added_match = 0;
 
-			// Now loop through nearby monsters
 			freeloop(1);
 			for (.@i = 0; .@i < .@mob_count; .@i++) {
 				.@gid = .@units[.@i];
 				getunitdata(.@gid, .@udata);
 				.@mobid = .@udata[UMOB_CLASS];
+				if (.@mobid <= 0) continue;
 
+				// deduplicate by comparing prior entries
+				.@dupe = 0;
+				for (.@j = 0; .@j < .@i; .@j++) {
+					getunitdata(.@units[.@j], .@udup);
+					if (.@udup[UMOB_CLASS] == .@mobid) {
+						.@dupe = 1;
+						break;
+					}
+				}
+				if (.@dupe) continue;
+
+				.@unique_count++;
+
+				// check if already in added list
+				for (.@j = 0; .@j < getarraysize(.@added_array$); .@j++) {
+					.@id_start = strpos(.@added_array$[.@j], "(") + 1;
+					.@id_end = strpos(.@added_array$[.@j], ")", .@id_start);
+					.@existing_id = atoi(substr(.@added_array$[.@j], .@id_start, .@id_end - 1));
+					if (.@existing_id == .@mobid) {
+						.@added_match++;
+						break;
+					}
+				}
+			}
+			freeloop(0);
+
+			if (.@unique_count > 0 && .@added_match >= .@unique_count) {
+				mes "All monsters on this map are already in your autoattack list.";
+				next;
+				goto monsters_menu;
+			}
+
+			// Build menu
+			.@seen_size = 0;
+			.@mob_menu$ = "";
+
+			freeloop(1);
+			for (.@i = 0; .@i < .@mob_count; .@i++) {
+				.@gid = .@units[.@i];
+				getunitdata(.@gid, .@udata);
+				.@mobid = .@udata[UMOB_CLASS];
 				if (.@mobid <= 0) continue;
 
 				// Skip if already added
@@ -342,7 +397,7 @@ monsters_menu:
 				}
 				if (.@skip) continue;
 
-				// Skip duplicates in current selection menu
+				// Skip duplicates in current menu
 				.@dupe = 0;
 				for (.@j = 0; .@j < .@seen_size; .@j++) {
 					if (.@seen[.@j] == .@mobid) {
@@ -352,10 +407,8 @@ monsters_menu:
 				}
 				if (.@dupe) continue;
 
-				// Add to seen array
 				.@seen[.@seen_size++] = .@mobid;
 
-				// Build the display string for selection menu
 				.@name$ = getmonsterinfo(.@mobid, MOB_NAME);
 				.@level = getmonsterinfo(.@mobid, MOB_LV);
 				.@mob_menu$ += "^FF0000(" + .@mobid + ")^000000 " + .@name$ + " Level " + .@level + ":";
@@ -368,16 +421,12 @@ monsters_menu:
 				goto monsters_menu;
 			}
 
-			// Split the menu string into array
 			explode(.@mobs$, .@mob_menu$, ":");
-
-			// Let player select a monster
 			.@choice = select(.@mob_menu$);
 			if (.@choice <= 0 || .@choice > getarraysize(.@mobs$)) {
 				goto monsters_menu;
 			}
 
-			// Extract monster ID from selected line
 			.@line$ = .@mobs$[.@choice - 1];
 			.@id_start = strpos(.@line$, "(") + 1;
 			.@id_end = strpos(.@line$, ")", .@id_start);
@@ -386,12 +435,12 @@ monsters_menu:
 
 			dispbottom "You selected: " + .@mob_id + ".";
 
-			// Add this monster ID to the list, preserving aggressive flag
 			setautoattack("8;1;" + .@mob_id + ";" + getautoattackint(8, 0));
 			break;
 
 		case 2:
 			if(getautoattackint(8,1) > 0){
+				clear;
 				mes "Enter the id of the monster to delete from the list";
 
 				.@monster_menu$ = getautoattackstring(8,1); // Retrieves a list of available buff items in menu format
@@ -1141,4 +1190,3 @@ OnPCDieEvent:
     }
     end;
 }
-
