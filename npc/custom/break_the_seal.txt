@@ -1,0 +1,461 @@
+//=============Valkyrie Quest==============
+//===================== BTS =====================================================
+prontera.gat,154,198,6	script	Valkyrie	811,{
+function CheckTimeoutSeal;
+
+function CheckTimeoutSeal {
+	if (getd("breakseal_timeout"+getcharid(3)) != 0 && gettimetick(2) > getd("breakseal_timeout"+getcharid(3))) {
+		delitem 1054, countitem(1054);
+		delitem 7289, countitem(7289);
+		delitem 7297, countitem(7297);
+		delitem 7018, countitem(7018);
+		delitem 7020, countitem(7020);
+		delitem 7035, countitem(7035);
+		delitem 1009, countitem(1009);
+		delitem 7442, countitem(7442);
+		setd("breakseal_timeout"+getcharid(3), 0);
+		set ron_ron, 0;
+		mes "[ Valkyrie ]";
+		mes "You took too long. I have taken the items. You must start again.";
+		close;
+	}
+}
+
+CheckTimeoutSeal();
+if(bry_bry >= 1) goto L_taposme;
+if(hen_hen >= 1) goto L_taposna;
+if(ron_ron < 1) {
+	mes "[ Valkyrie ]";
+	mes "I will foretell you about Breaking the Seal Quest";
+	mes "I am the guardian of the seal, break it and receive my treasure.";
+	next;
+	mes "[ Valkyrie ]";
+	mes "These are what I need";
+	mes "100 Ancient Lips (1054)";
+	mes "10 Peridot (7289)";
+	mes "10 Biotite (7297)";
+	next;
+	mes "10 Young Twig (7018)";
+	mes "10 Mother's Nightmare (7020)";
+	mes "15 Matchstick (7035)";
+	mes "200 Hand of God (1009)";
+	mes "20 Cursed Seal (7442)";
+	next;
+	mes "So, are you up to my quest dear child?";
+	menu "Yes!",L_sealstart, "No, I'm sorry.",L_later;
+}
+if(ron_ron >= 1) goto L_ready;
+
+L_sealstart:
+	set ron_ron, 1;
+	setd("breakseal_timeout"+getcharid(3), gettimetick(2) + 60);
+	mes "[ Valkyrie ]";
+	mes "Are the items ready? Let me check.";
+	next;
+	CheckTimeoutSeal();
+	if(countitem(1054) < 100 || countitem(7289) < 10 || countitem(7297) < 10 || countitem(7018) < 10 || countitem(7020) < 10 || countitem(7035) < 15 || countitem(1009) < 200 || countitem(7442) < 20) goto L_later2;
+	delitem 1054,100;
+	delitem 7289,10;
+	delitem 7297,10;
+	delitem 7018,10;
+	delitem 7020,10;
+	delitem 7035,15;
+	delitem 1009,200;
+	delitem 7442,20;
+	setd("breakseal_timeout"+getcharid(3), 0);
+
+L_ready:
+	mes "[ Valkyrie ]";
+	mes "Another brave one succeeded.";
+	set ron_ron, 0;
+	set hen_hen,1;
+	next;
+	switch (select("Your Welcome")) {
+		case 1:
+			set .@gamble1,rand(1,500);
+			if ((.@gamble1 > 200) && (.@gamble1 < 205)) {
+				set .@gamble2,rand(1,10);
+				if(.@gamble2 <= 2) set .@item,7086;
+				else if(.@gamble2 <= 4) set .@item,7090;
+				else if(.@gamble2 <= 6) set .@item,7091;
+				else if(.@gamble2 <= 8) set .@item,7077;
+				else set .@item,7078;
+			} else if (.@gamble1 <= 200) set .@item,7086;
+			else if (.@gamble1 <= 300) set .@item,7090;
+			else if (.@gamble1 <= 400) set .@item,7091;
+			else if (.@gamble1 <= 480) set .@item,7077;
+			else set .@item,7078;
+			break;
+	}
+	getitem .@item,1;
+	mes "[ Valkyrie ]";
+	mes "Ah, you have outdone yourself!";
+	mes "Thank you for your aid.";
+	mes "Now start your journey to find my Nephews who hold the Valkyries";
+	announce "Wow! The Seal has been annihilated by "+strcharinfo(0)+"! He has just broken the seal and will start the quest of Valkyrie!","0x33FF66";
+	close2;
+	end;
+
+L_taposna:
+mes "[ Valkyrie ]";
+mes "Go out and search the Fields of Payon, Geffen, Lighthalzen and Comodo for the Valkyrie Equipments";
+close;
+
+L_taposme:
+mes "[ Valkyrie ]";
+mes "You've already surpassed this quest and there is no point in doing it again.";
+close;
+
+L_later:
+delitem 1054, countitem(1054);
+delitem 7289, countitem(7289);
+delitem 7297, countitem(7297);
+delitem 7018, countitem(7018);
+delitem 7020, countitem(7020);
+delitem 7035, countitem(7035);
+delitem 1009, countitem(1009);
+delitem 7442, countitem(7442);
+setd("breakseal_timeout"+getcharid(3), 0);
+set ron_ron, 0;
+mes "[ Valkyrie ]";
+mes "Well too bad. Your cowardice cost you the opportunity and your items.";
+close;
+
+L_later2:
+delitem 1054, countitem(1054);
+delitem 7289, countitem(7289);
+delitem 7297, countitem(7297);
+delitem 7018, countitem(7018);
+delitem 7020, countitem(7020);
+delitem 7035, countitem(7035);
+delitem 1009, countitem(1009);
+delitem 7442, countitem(7442);
+setd("breakseal_timeout"+getcharid(3), 0);
+set ron_ron, 0;
+mes "[ Valkyrie ]";
+mes "You lack some items. All gathered ingredients are wasted. Start again when ready.";
+close;
+}
+
+moc_para01.gat,40,36,5	script	Wanderer	900,{
+function CheckTimeout1;
+
+function CheckTimeout1 {
+	if (getd("wanderer_timeout"+getcharid(3)) != 0 && gettimetick(2) > getd("wanderer_timeout"+getcharid(3))) {
+		delitem 7090, countitem(7090);
+		delitem 7077, countitem(7077);
+		delitem 7444, countitem(7444);
+		delitem 7451, countitem(7451);
+		setd("wanderer_timeout"+getcharid(3), 0);
+		mes "[ Wanderer ]";
+		mes "You took too long. I have taken the items. Come back if you still want the armor.";
+		close;
+	}
+}
+
+CheckTimeout1();
+if(bry_bry >= 1) goto L_udone;
+if(kim_kim >= 1) goto L_tapospopo;
+if(ron_ron >= 1) goto continueq;
+if(ron_ron < 1)
+{
+mes "[ Wanderer ]";
+mes "Are you the delivery boy of Pizza Hut?";
+mes "If not go away I don't need you!";
+close;
+}
+continueq:
+
+mes "[ Wanderer ]";
+mes "Oh Grasya Santisimo!!";
+mes "You have spoken to Uncle Valkyrie!?";
+next;
+mes "[ Wanderer ]";
+mes "By the way I am Wanderer of Payon the Crafter of the Valkyrie Armor";
+mes "Would you like to possess it?";
+menu "Yes, I deserve it!",L_start, "No, I'm not good enough.",L_ayaw;
+
+L_start:
+next;
+mes "[ Wanderer ]";
+mes "This Great Armor is very complicated, it needs very rare materials to craft it. If you really want to possess it gather these items for me";
+next;
+mes "4 Ripple";
+mes "4 Silver Ornament";
+mes "5 Fire Dragon Scale";
+mes "25 Treasure Box";
+next;
+mes "[ Wanderer ]";
+mes "I will be waiting for you chosen one!";
+setd("wanderer_timeout"+getcharid(3), gettimetick(2) + 60);
+CheckTimeout1();
+if(countitem(7090) < 4 || countitem(7077) < 4 || countitem(7444) < 25 || countitem(7451) < 5) goto koolang;
+goto kontinueq;
+
+L_ayaw:
+mes "[ Wanderer ]";
+mes "Wacha Wachi Wacho... Go! Shoooo";
+mes "Just speak to me if you want it already";
+close;
+
+koolang:
+next;
+mes "[ Wanderer ]";
+mes "As I said, one missing material and all the others go to waste";
+close;
+
+kontinueq:
+next;
+mes "[ Wanderer ]";
+mes "Very well done my friend you have finished the quest and acquired the Valkyrie Armor.";
+delitem 7090,4;
+delitem 7077,4;
+delitem 7444,25;
+delitem 7451,5;
+setd("wanderer_timeout"+getcharid(3), 0);
+next;
+getitem 2357,1;
+set kim_kim,1;
+next;
+mes "[ Wanderer ]";
+mes "Good Job! Enjoy your precious item.";
+mes "Now, go ahead and seek my Brothers and Cousins to finish the quest";
+mes "And when you gain the Valkyrie Set speak to Bryan";
+mes "If you have no clue about their location, my brothers and cousins are scattered around Rune-Midgard and Bryan is in Valkyrie";
+announce "Wow!"+strcharinfo(0)+" has just acquired the mystical Valkyrie Armor.",8;
+close;
+
+L_tapospopo:
+mes "[ Wanderer ]";
+mes "As I said, complete the Valkyrie Quest";
+mes "And then speak to Bryan";
+close;
+
+L_udone:
+mes "[ Wanderer ]";
+mes "This quest, once done there is no more repeating";
+close;
+}
+
+comodo.gat,172,229,5	script	JmKhov	731,{
+function CheckTimeoutJmkhov;
+
+function CheckTimeoutJmkhov {
+	if (getd("jmkhov_timeout"+getcharid(3)) != 0 && gettimetick(2) > getd("jmkhov_timeout"+getcharid(3))) {
+		delitem 7035, countitem(7035);
+		delitem 7077, countitem(7077);
+		delitem 2506, countitem(2506);
+		delitem 7444, countitem(7444);
+		setd("jmkhov_timeout"+getcharid(3), 0);
+		set ron_ron, 0;
+		mes "[ JmKhov ]";
+		mes "You took too long! I took your items. Start over noob!";
+		close;
+	}
+}
+
+CheckTimeoutJmkhov();
+if(bry_bry >=1) goto L_puten;
+if(jmk_jmk >=1) goto L_buten;
+if(ron_ron >=1) goto M_buten;
+if(ron_ron < 1) {
+	mes "[ JmKhov ]";
+	mes "Hi?.";
+	mes "Now fly, you noob!";
+	close;
+}
+
+M_buten:
+mes "[ JmKhov ]";
+mes "So you know my uncle Valkyrie? Wow that's great!";
+mes "I can make the Valkyrie Manteau for you!";
+mes "You surely want it noob?";
+menu "Yeye",L_start, "Nevermind, thanks.",karpenter;
+
+L_start:
+setd("jmkhov_timeout"+getcharid(3), gettimetick(2) + 60);
+next;
+mes "[ JmKhov ]";
+mes "Oh, holy! Give me these items right away!";
+next;
+mes "50 Matchstick";
+mes "7 Silver Ornament";
+mes "1 Manteau[1]";
+mes "100 Treasure Box";
+next;
+mes "[ JmKhov ]";
+mes "Don't miss your chance, I will be waiting for you.";
+CheckTimeoutJmkhov();
+if (countitem(7035) < 50 || countitem(7077) < 7 || countitem(2506) < 1 || countitem(7444) < 100) goto L_fail;
+goto L_success;
+
+karpenter:
+delitem 7035, countitem(7035);
+delitem 7077, countitem(7077);
+delitem 2506, countitem(2506);
+delitem 7444, countitem(7444);
+setd("jmkhov_timeout"+getcharid(3), 0);
+set ron_ron, 0;
+next;
+mes "[ JmKhov ]";
+mes "Huhu *sob*! You've wasted my time! I took the stuff. Get lost noob!";
+close;
+
+L_fail:
+delitem 7035, countitem(7035);
+delitem 7077, countitem(7077);
+delitem 2506, countitem(2506);
+delitem 7444, countitem(7444);
+setd("jmkhov_timeout"+getcharid(3), 0);
+set ron_ron, 0;
+next;
+mes "[ JmKhov ]";
+mes "Incomplete items, noob! I took what you had. Start over!";
+close;
+
+L_success:
+next;
+mes "[ JmKhov ]";
+mes "I see, you're a trustworthy one.";
+delitem 7444,100;
+delitem 2506,1;
+delitem 7077,7;
+delitem 7035,50;
+setd("jmkhov_timeout"+getcharid(3), 0);
+set ron_ron, 0;
+getitem 2524,1;
+set jmk_jmk,1;
+next;
+mes "[ JmKhov ]";
+mes "Rawr! Take this robe and continue the Valkyrie Quest,";
+mes "And when you gain the Valkyrie Set speak to Bryan.";
+mes "If you have no clue about their location, my brothers and cousins are scattered around Rune-Midgard and Bryan is in Valkyrie";
+announce "Wow! "+strcharinfo(0)+" has just acquired the mystical Valkyrie Manteau.",8;
+close;
+
+L_buten:
+mes "[ JmKhov ]";
+mes "Finish my Uncle's quest and speak to Bryan at the Valkyrie";
+close;
+
+L_puten:
+mes "[ JmKhov ]";
+mes "Wow, you're one of the Mega-Warrior! How is life treating you my friend?";
+close;
+}
+
+valkyrie.gat,49,49,5	script	Bryan	733,{
+function CheckTimeoutBryan;
+
+function CheckTimeoutBryan {
+	if (getd("bryan_timeout"+getcharid(3)) != 0 && gettimetick(2) > getd("bryan_timeout"+getcharid(3))) {
+		delitem 7345, countitem(7345);
+		delitem 7086, countitem(7086);
+		delitem 7035, countitem(7035);
+		delitem 969, countitem(969);
+		setd("bryan_timeout"+getcharid(3), 0);
+		mes "[ Bryan ]";
+		mes "You took too long. I've taken the items. Start again when you're ready.";
+		close;
+	}
+}
+
+CheckTimeoutBryan();
+mes "[ Bryan ]";
+mes "Hello there child, I am Bryan.";
+next;
+if(bry_bry >= 1) goto L_kalbo;
+if(countitem(2524) < 1 || countitem(2421) < 1 || countitem(2357) < 1 || countitem(2115) < 1) goto Bryan;
+mes "[ Bryan ]";
+mes "Good you have the Valkyrie Set if you must know I am the crafter of the Sleipnir.";
+next;
+if(jmk_jmk >= 1) goto Bryanquest;
+goto Bryan;
+
+Bryanquest:
+mes "[ Bryan ]";
+mes "I see, You really have spoken to my brothers.";
+mes "Very well then!";
+next;
+mes "[ Bryan ]";
+mes "By the way I am Bryan of the Valkyries and you already know what I make.";
+mes "Do you desire to have the Sleipnir?";
+menu "Yes",L_accept, "No",L_nono;
+
+L_accept:
+setd("bryan_timeout"+getcharid(3), gettimetick(2) + 60);
+next;
+mes "[ Bryan ]";
+mes "The Great Sleipnir named after Odin's trustee";
+mes "Steed, is the most powerful shoe in the land";
+mes "Gather these items so I may craft it";
+next;
+mes "300 Handcuffs";
+mes "9 Emblem of Sun God";
+mes "10 Matchstick";
+mes "100 Gold";
+next;
+mes "[ Bryan ]";
+mes "I will be waiting for you great one.";
+CheckTimeoutBryan();
+if(countitem(7345) < 300 || countitem(7086) < 9 || countitem(7035) < 10 || countitem(969) < 100) goto L_fail;
+goto L_success;
+
+L_nono:
+delitem 7345, countitem(7345);
+delitem 7086, countitem(7086);
+delitem 7035, countitem(7035);
+delitem 969, countitem(969);
+setd("bryan_timeout"+getcharid(3), 0);
+next;
+mes "[ Bryan ]";
+mes "Go away! If you don't want it. You're wasting my time already.";
+mes "I've taken your items. Just speak to me again if you're ready.";
+close;
+
+L_fail:
+delitem 7345, countitem(7345);
+delitem 7086, countitem(7086);
+delitem 7035, countitem(7035);
+delitem 969, countitem(969);
+setd("bryan_timeout"+getcharid(3), 0);
+next;
+mes "[ Bryan ]";
+mes "You lack some items. I've taken what you had. Return when ready.";
+close;
+
+L_success:
+next;
+mes "[ Bryan ]";
+mes "Very well done child.";
+mes "You are very good!";
+delitem 7345,300;
+delitem 7086,9;
+delitem 969,100;
+delitem 7035,10;
+getitem2 2410,1,1,@ref,0,254,0,getcharid(0)&0xffff,(getcharid(0)>>16)&0xffff;
+set bry_bry,1;
+setd("bryan_timeout"+getcharid(3), 0);
+next;
+mes "[ Bryan ]";
+mes "As for my excellency, take care of that Sleipnir";
+mes "You are now a Mega-Warrior of Temptation Ragnarok Online";
+mes "Go wild and free, you noble man";
+announce "Raise the Roof! "+strcharinfo(0)+" has just become the Mega-Warrior and gained Sleipnir.",8;
+close;
+
+L_kalbo:
+mes "[ Bryan ]";
+mes "You have already gained Sleipnir";
+mes "How dare you speak to me again!? Now, I order you to go back to Prontera!";
+next;
+percentheal -100,0;
+warp "prontera.gat",0,0;
+close;
+
+Bryan:
+mes "[ Bryan ]";
+mes "Oh my bad, I see you are just another newbie.";
+mes "Go fly away";
+close;
+}
